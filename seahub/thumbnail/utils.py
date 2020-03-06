@@ -28,7 +28,7 @@ XMIND_IMAGE_SIZE = 1024
 
 if ENABLE_VIDEO_THUMBNAIL:
     try:
-        from moviepy.editor import VideoFileClip
+        import ffmpeg
         logger.debug('Video thumbnail is enabled.')
     except ImportError:
         logger.error("Could not find moviepy installed.")
@@ -196,10 +196,19 @@ def create_video_thumbnails(repo, file_id, path, size, thumbnail_file, file_size
         return (False, 500)
 
     inner_path = gen_inner_file_get_url(token, os.path.basename(path))
-    clip = VideoFileClip(inner_path)
     tmp_path = str(os.path.join(tempfile.gettempdir(), '%s.png' % file_id[:8]))
 
-    clip.save_frame(tmp_path, t=THUMBNAIL_VIDEO_FRAME_TIME)
+    try:
+        (
+            ffmpeg
+            .input(inner_path, ss=THUMBNAIL_VIDEO_FRAME_TIME)
+            .output(tmp_path, vframes=1)
+            .overwrite_output()
+            .run(capture_stdout=True, capture_stderr=True)
+        )
+    except ffmpeg.Error as e:
+        logger.error(e.stderr.decode())
+
     t2 = timeit.default_timer()
     logger.debug('Create thumbnail of [%s](size: %s) takes: %s' % (path, file_size, (t2 - t1)))
 
