@@ -640,6 +640,7 @@ else:
     THUMBNAIL_ROOT = os.path.join(PROJECT_ROOT, 'seahub/thumbnail/thumb')
 
 THUMBNAIL_EXTENSION = 'png'
+THUMBNAIL_IMAGE_OPTS = {}
 
 # for thumbnail: height(px) and width(px)
 THUMBNAIL_DEFAULT_SIZE = 48

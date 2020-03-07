@@ -18,7 +18,7 @@ from seaserv import get_file_id_by_path, get_repo, get_file_size, \
 
 from seahub.utils import gen_inner_file_get_url, get_file_type_and_ext
 from seahub.utils.file_types import VIDEO, XMIND
-from seahub.settings import THUMBNAIL_IMAGE_SIZE_LIMIT, \
+from seahub.settings import THUMBNAIL_IMAGE_SIZE_LIMIT, THUMBNAIL_IMAGE_OPTS,\
     THUMBNAIL_EXTENSION, THUMBNAIL_ROOT, THUMBNAIL_IMAGE_ORIGINAL_SIZE_LIMIT,\
     ENABLE_VIDEO_THUMBNAIL, THUMBNAIL_VIDEO_FRAME_TIME
 # Get an instance of a logger
@@ -241,7 +241,7 @@ def _create_thumbnail_common(fp, thumbnail_file, size):
 
     image = get_rotated_image(image)
     image.thumbnail((size, size), Image.ANTIALIAS)
-    image.save(thumbnail_file, THUMBNAIL_EXTENSION)
+    image.save(thumbnail_file, THUMBNAIL_EXTENSION, **THUMBNAIL_IMAGE_OPTS)
     return (True, 200)
 
 def extract_xmind_image(repo_id, path, size=XMIND_IMAGE_SIZE):
