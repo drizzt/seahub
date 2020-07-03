@@ -227,7 +227,7 @@ class DirentDetail extends React.Component {
     const isImg = dirent ? Utils.imageCheck(dirent.name) : Utils.imageCheck(folderDirent.name);
     const isVideo = dirent ? Utils.videoCheck(dirent.name) : Utils.videoCheck(folderDirent.name);
     if (isImg || isVideo) {
-      bigIconUrl = `${siteRoot}thumbnail/${repoID}/1024` + Utils.encodePath(`${path === '/' ? '' : path}/${dirent.name}`);
+      bigIconUrl = `${siteRoot}thumbnail/${repoID}/1280` + Utils.encodePath(`${path === '/' ? '' : path}/${dirent.name}`);
     }
     let direntName = dirent ? dirent.name : folderDirent.name;
 

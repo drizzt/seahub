@@ -121,7 +121,7 @@ class DirentGridItem extends React.Component {
   getFileUrl = (url) => {
     let fileUrlArr = url.split('/');
     if (fileUrlArr.indexOf('48') !== -1) {
-      fileUrlArr.splice(fileUrlArr.indexOf('48'), 1, '192');
+      fileUrlArr.splice(fileUrlArr.indexOf('48'), 1, '256');
     }
     let fileUrl = fileUrlArr.join('/');
     return fileUrl;
